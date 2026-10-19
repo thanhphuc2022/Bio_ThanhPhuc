@@ -259,7 +259,7 @@ export function CardExperience({ profile }: { profile: Profile }) {
       <div className="ambient ambient-one" aria-hidden="true" />
       <div className="ambient ambient-two" aria-hidden="true" />
       <header className="topbar">
-        <a className="wordmark" href="#main" aria-label="Thanh Phúc — về đầu trang"><span className="wordmark-mark" aria-hidden="true">HP</span><span>Thanh Phúc</span></a>
+        <a className="wordmark" href="#main" aria-label="Thanh Phúc — về đầu trang"><Image className="wordmark-logo" src="/images/logo-thanh-phuc-display.png" alt="" width={1695} height={385} priority unoptimized /></a>
       </header>
 
       <div className="page-main" id="main">

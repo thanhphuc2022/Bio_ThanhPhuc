@@ -21,10 +21,8 @@ a:focus-visible{outline:3px solid #bd9b5b;outline-offset:3px}
 .ambient-one{top:11%;left:-24%;width:620px;height:620px;box-shadow:0 0 0 34px rgba(23, 102, 92, 0.015), 0 0 0 70px rgba(23, 102, 92, 0.012)}
 .ambient-two{right:-20%;bottom:8%;width:420px;height:420px;box-shadow:0 0 0 28px rgba(198, 165, 109, 0.035)}
 .topbar{display:flex;align-items:center;justify-content:space-between;height:68px;max-width:1160px;margin:0 auto;border-bottom:1px solid rgba(32, 44, 42, 0.09)}
-.wordmark{display:inline-flex;align-items:center;gap:10px;color:var(--ink);font-size:17px;font-weight:600;letter-spacing:-0.25px;text-decoration:none;transition:color 0.18s ease}
-.wordmark:hover{color:var(--teal)}
-.wordmark-mark{display:grid;width:34px;height:34px;place-items:center;border-radius:9px;background:var(--teal);color:var(--white);font-size:14px;font-weight:700;letter-spacing:-0.04em;transition:background-color 0.18s ease}
-.wordmark:hover .wordmark-mark{background:var(--teal-dark)}
+.wordmark{display:inline-flex;max-width:100%;align-items:center;text-decoration:none;line-height:0}
+.wordmark-logo{display:block;width:180px;max-width:100%;height:auto;object-fit:contain}
 .page-main{display:grid;grid-template-columns:minmax(0, 0.9fr) minmax(0, 1.1fr);align-items:start;gap:18px;width:min(100%, 1080px);min-height:0;margin:30px auto 20px;animation:arrive 0.7s ease both}
 .profile-panel,
 .details-panel{min-width:0;align-self:start;border:1px solid rgba(35, 49, 44, 0.07);border-radius:20px;box-shadow:0 14px 38px rgba(35, 49, 44, 0.045)}
@@ -145,6 +143,7 @@ a:focus-visible{outline:3px solid #bd9b5b;outline-offset:3px}
   .page-shell{padding-inline:12px;background:radial-gradient(ellipse at 20% 22%, rgba(226, 234, 224, 0.45), transparent 36%),
       var(--paper)}
   .topbar{height:67px}
+  .wordmark-logo{width:150px}
   .page-main{display:flex;flex-direction:column;gap:12px;margin:14px auto}
   .profile-panel,
   .details-panel{width:100%;border-radius:16px}
