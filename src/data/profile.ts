@@ -98,8 +98,8 @@ export const profile: Profile = {
         src: "/images/QR_Momo_display.png",
         originalSrc: "/images/QR_Momo.jpg",
         alt: "Ảnh thông tin và mã QR ví MoMo của HO THANH PHUC; số điện thoại được che, chỉ thấy ba số cuối 945",
-        width: 430,
-        height: 430,
+        width: 490,
+        height: 520,
       },
     },
     {
