@@ -90,13 +90,14 @@ a:focus-visible{outline:3px solid #bd9b5b;outline-offset:3px}
 .bank-action-secondary{border-color:#cdd7d0;background:transparent;color:#40504b}
 .bank-action-secondary:hover{border-color:#aec2b7;background:var(--teal-soft)}
 .bank-transfer-note{margin:7px 0 0;color:#6f7b74;font-size:12px;line-height:1.5;text-align:center}
-.modal{position:fixed;inset:0;width:min(540px, calc(100vw - 32px));max-width:540px;max-height:calc(100dvh - 32px);margin:auto;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding:0;border:1px solid #e2e7df;border-radius:18px;background:var(--white);color:var(--ink);box-shadow:0 28px 90px rgba(20, 40, 33, 0.24)}
+.modal{position:fixed;inset:0;width:min(540px, calc(100vw - 32px));max-width:540px;max-height:calc(100dvh - 32px);margin:auto;overflow:auto;overscroll-behavior:contain;padding:0;border:1px solid #e2e7df;border-radius:18px;background:var(--white);color:var(--ink);box-shadow:0 28px 90px rgba(20, 40, 33, 0.24)}
 /* Dialog and feedback */
 .modal::backdrop{position:fixed;inset:0;background:rgba(25, 38, 33, 0.5);backdrop-filter:blur(3px)}
 .modal[open]{animation:modal-in 0.2s ease both}
 .modal-content{padding:clamp(16px, 4vw, 24px)}
 .modal-top{position:relative;display:flex;min-height:44px;align-items:center;justify-content:center;padding:0 48px;text-align:center}
 .modal-top h2{margin:0;font-size:24px;font-weight:400;line-height:1.3;text-align:center}
+.dialog-feedback{min-height:1.5em;margin:10px 0 0;color:#355e4b;font-size:12px;line-height:1.5;text-align:center}
 .icon-button{display:grid;width:44px;height:44px;place-items:center;border:1px solid #e5e9e2;border-radius:9px;background:var(--white);color:#607269;cursor:pointer;transition:background 0.15s, border-color 0.15s, color 0.15s}
 .icon-button:hover{border-color:#b8d0c5;background:var(--teal-soft);color:var(--teal)}
 .icon-button svg{width:16px;height:16px}
@@ -110,6 +111,8 @@ a:focus-visible{outline:3px solid #bd9b5b;outline-offset:3px}
 .modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .modal-actions .modal-share{padding-inline:8px}
 .share-url{display:block;max-width:100%;margin:4px 0 12px;color:var(--teal-dark);font-size:13px;line-height:1.5;text-align:center;overflow-wrap:anywhere}
+.share-qr-frame{display:flex;width:min(100%, 240px);align-items:center;justify-content:center;margin:0 auto 12px}
+.share-qr-frame img{display:block;width:min(100%, 240px);height:auto;aspect-ratio:1/1;object-fit:contain}
 .toast{position:fixed;z-index:5;bottom:25px;left:50%;display:flex;align-items:center;gap:9px;min-height:44px;padding:0 16px;transform:translate(-50%, 12px);border:1px solid #d6e2d8;border-radius:10px;background:var(--white);color:#355e4b;box-shadow:0 8px 30px rgba(20, 45, 34, 0.15);font-size:12px;opacity:0;pointer-events:none;transition:opacity 0.2s, transform 0.2s}
 .toast-visible{transform:translate(-50%, 0);opacity:1}
 .toast svg{flex:none;width:16px;height:16px}

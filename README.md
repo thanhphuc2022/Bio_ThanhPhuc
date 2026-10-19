@@ -1,1 +1,26 @@
-‣桐捵䌠牡੤䐊湡⁨桴뾺⁰釄螻⁮궻挠ꇃ渠써溢琠뾺杮嘠螻ⱴ砠ꋃ⁹놻杮瘠믡榛丠硥⹴獪䄠灰删畯整Ⱳ吠灹卥牣灩⁴瑳楲瑣瘠ꃃ吠楡睬湩⁤千⹓䠠믡ₓ왳₡鎻⁭썴溪‬杮膻渠桧螻Ɒ䜠瑩畈Ɫ䘠捡扥潯Ⱬ娠污⁯썶₠慢瀠왨우溡⁧桴믡掩挠畨莻⁮桫ꎺ⹮䜠慩⁯楤믡溇搠맃杮映湯⁴螻琠醻杮栠믡ₗ牴믡₣楴뫡溿⁧楖믡璇‬桫듃杮挠뫡溧琠뫡榣映湯⁴杮썯榠‮뫡溢⁨潍潍挠覻栠莻⁮桴믡₋慢猠믡ₑ畣믡榑怠㐹怵※醻쐠榑믡溇琠潨뫡榡怠㤰㌸㈲㤲㔴⁠ꖺ⁹ꮻ挠뫡疥栠곃桮쐠莻栠莻⁮桴믡₋썶₠慳⁯档꧃⹰ਊ⌣䌠ꆺ⁹믡溩⁧ꖻ杮ਊ썙疪挠뫡疧丠摯⹥獪㈠⸰‹牴믡₟썬溪ਮ怊恠慢桳渊浰椠獮慴汬渊浰爠湵搠癥怊恠ਊ龻怠瑨灴⼺氯捯污潨瑳㌺〰怰‮썃採氠믡溇⁨楫믡涃琠慲›湠浰爠湵琠灹捥敨正Ⱡ怠灮⁭畲⁮楬瑮Ⱡ怠灮⁭畲⁮畢汩恤ਮ⌊‣桃믡溉⁨궻⁡鎻猠ꇆ瘠ꃃ琠써涪琠ꃃ⁩桫ꎺ੮䴊믡₟恛牳⽣慤慴瀯潲楦敬琮恳⡝牳⽣慤慴瀯潲楦敬琮⥳‮궺⁰桮뫡璭挠ꇃ⁣牴냆믡溝⁧ꞻ⁡灠潲楦敬㭠琠써涪挠ꇃ⁣楬꫃⁮뾺⁴楬꫃⁮螻瘠ꃃ⁯捠湯慴瑣恳‮뫡溢⁨档ꋃ⁮畤杮挠돃挠뫡疥栠곃桮爠썩溪⁧獠捲Ⱡ怠污恴‬潠橢捥側獯瑩潩恮瘠ꃃ欠귃档琠왨鮻⁣뫡溣⁨醻⹣䈠⁡뫡溣⁨剑搠맃杮挠맃杮挠浯潰敮瑮‬楨믡溃琠讻焠慵戠믡ₙ档믡溍渠썧溢栠ꃃ杮쐠莻朠꾻瘠맃杮砠浥氠믡溛琠潲杮挠믡璙栠뫡点ਮ䴊믡榗琠ꃃ⁩桫ꎺ⁮썣₳煠䥲慭敧⁠鎻⁭獠捲⁠ꎺ桮砠浥琠왲鮻⥣‬潠楲楧慮卬捲⁠琨믡炇琠뫡榣Ⱙ怠污恴‬睠摩桴Ⱡ怠敨杩瑨⹠䈠⁡뫡溣⁨醻⁣楧믡₯杮祵꫃⁮牴湯⁧灠扵楬⽣浩条獥怯※썣採琠믡炇怠剑⩟摟獩汰祡瀮杮⁠썬₠뫡溣⁨數⁭牴냆믡掛爠썩溪⹧丠뫃⁴ꎺ⁩ꖺ⁹뫡溣⁨醻⹣䬠楨琠慨⁹뫡溣ⱨ挠뫡炭渠궺⁴ꎺ쐠욑鶻杮搠뫡溫‬썭₴ꎺ瘠ꃃ欠귃档琠왨鮻⁣왴우溡⁧믡溩⹧吠慲杮欠써溴⁧놻琠뫡澡儠⁒桴湡⁨潴ꇃ⁮潨뫡掷砠ꇃ⁣桮뫡溭朠慩⁯讻档ਮ儊⁒牴湯⁧馻⁰桴ꆺ⁩档慩猠뫡₻썬₠剑洠믡₟剕⁌楨믡溇琠뫡榡挠믡憧琠慲杮‬釄냆믡掣琠뫡澡焠慵搠믡掋⁨ꖻ儠⁒썢溪渠潧ꃃ㭩挠뫡溧挠돃欠뫡璿渠믡榑洠뫡溡⁧釄믡₃楨믡溃琠讻‮믡溨⁧ꖻ杮欠써溴⁧档믡憩唠䱒琠꫃⁮業믡溁朠ꎺ‮桋⁩釄냆⁡썬溪栠獯楴杮‬ꖺ⁵써溬⁨剕⁌牰摯捵楴湯쐠쎑溺⁧釄믡₃档慩猠뫡₻牴湡⁧釄ꏃ砠ꖺ⁴ꎺ⹮⌊ 䈀椀漀开吀栀愀渀栀倀栀甀挀ഀ਀਀
+# Phuc Card
+
+Bio eCard cá nhân của Hồ Thanh Phúc, dùng Next.js, React, TypeScript và CSS. Trang hiển thị hồ sơ, liên kết liên hệ, ba tùy chọn nhận chuyển khoản, mã QR chia sẻ trang và danh bạ vCard.
+
+## Chạy dự án
+
+```bash
+npm ci
+npm run dev
+```
+
+Mở `http://localhost:3000`. Các lệnh dự án:
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+npm run start
+```
+
+## Cập nhật thông tin và ảnh
+
+- Sửa tên, nghề nghiệp, điện thoại, liên kết và cấu hình các tài khoản trong [`src/data/profile.ts`](src/data/profile.ts).
+- Thay avatar tại `public/images/avatar.png`; đường dẫn, mô tả và vị trí ảnh được khai báo trong `profile.avatar`.
+- Ảnh QR dùng để hiển thị được khai báo tại `qrImage.src` (`*_display.png`). Ảnh tải về là file gốc tại `qrImage.originalSrc` (`.jpg`). Giữ nguyên hai vai trò này khi thay ảnh.
+- QR nhận tiền là ảnh ngân hàng của từng tài khoản. QR chia sẻ trang được tạo riêng từ URL hiện tại qua dịch vụ bên ngoài `api.qrserver.com`; chức năng này phụ thuộc dịch vụ đó.

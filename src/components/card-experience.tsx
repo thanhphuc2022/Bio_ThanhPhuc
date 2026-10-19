@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState, useSyncExternalStore, type KeyboardEvent } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore, type KeyboardEvent } from "react";
 import Image from "next/image";
 import type { BankAccount, Profile } from "@/data/profile";
 import { Icon } from "@/components/icon";
@@ -23,10 +23,44 @@ function getServerUrlSnapshot() {
 export function CardExperience({ profile }: { profile: Profile }) {
   const [dialog, setDialog] = useState<DialogContent | null>(null);
   const [toast, setToast] = useState("");
+  const [dialogFeedback, setDialogFeedback] = useState("");
   const [selectedBankId, setSelectedBankId] = useState(profile.bankAccounts[0]?.id ?? "");
   const currentUrl = useSyncExternalStore(subscribeToUrl, getUrlSnapshot, getServerUrlSnapshot);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const returnFocusRef = useRef<HTMLElement | null>(null);
+  const feedbackTimerRef = useRef<number | null>(null);
+  const feedbackSequenceRef = useRef(0);
+  const showDialogFrameRef = useRef<number | null>(null);
+  const restoreFocusFrameRef = useRef<number | null>(null);
+  const dialogSequenceRef = useRef(0);
+
+  function clearFeedbackTimer() {
+    feedbackSequenceRef.current += 1;
+    if (feedbackTimerRef.current !== null) {
+      window.clearTimeout(feedbackTimerRef.current);
+      feedbackTimerRef.current = null;
+    }
+  }
+
+  function clearDialogFrames() {
+    dialogSequenceRef.current += 1;
+    if (showDialogFrameRef.current !== null) {
+      window.cancelAnimationFrame(showDialogFrameRef.current);
+      showDialogFrameRef.current = null;
+    }
+    if (restoreFocusFrameRef.current !== null) {
+      window.cancelAnimationFrame(restoreFocusFrameRef.current);
+      restoreFocusFrameRef.current = null;
+    }
+  }
+
+  useEffect(() => () => {
+    feedbackSequenceRef.current += 1;
+    if (feedbackTimerRef.current !== null) window.clearTimeout(feedbackTimerRef.current);
+    dialogSequenceRef.current += 1;
+    if (showDialogFrameRef.current !== null) window.cancelAnimationFrame(showDialogFrameRef.current);
+    if (restoreFocusFrameRef.current !== null) window.cancelAnimationFrame(restoreFocusFrameRef.current);
+  }, []);
 
   useLayoutEffect(() => {
     if (!dialog) return;
@@ -81,37 +115,58 @@ export function CardExperience({ profile }: { profile: Profile }) {
       if (originalBodyStyle === null) body.removeAttribute("style");
       else body.setAttribute("style", originalBodyStyle);
       window.scrollTo(scrollX, scrollY);
-      const returnFocus = returnFocusRef.current;
-      returnFocusRef.current = null;
-      if (returnFocus?.isConnected) {
-        window.requestAnimationFrame(() => {
-          if (returnFocus.isConnected) returnFocus.focus({ preventScroll: true });
-        });
-      }
     };
   }, [dialog]);
 
   function announce(message: string) {
-    setToast(message);
-    window.setTimeout(() => setToast(""), 2800);
+    clearFeedbackTimer();
+    const sequence = feedbackSequenceRef.current;
+    const insideDialog = dialogRef.current?.open ?? false;
+    if (insideDialog) {
+      setDialogFeedback(message);
+      setToast("");
+    } else {
+      setToast(message);
+      setDialogFeedback("");
+    }
+    feedbackTimerRef.current = window.setTimeout(() => {
+      if (sequence !== feedbackSequenceRef.current) return;
+      if (insideDialog) setDialogFeedback("");
+      else setToast("");
+      feedbackTimerRef.current = null;
+    }, 2800);
   }
 
   function openDialog(content: DialogContent) {
+    clearDialogFrames();
+    clearFeedbackTimer();
+    setToast("");
+    setDialogFeedback("");
     returnFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const sequence = dialogSequenceRef.current;
     setDialog(content);
-    requestAnimationFrame(() => {
-      if (!dialogRef.current?.open) dialogRef.current?.showModal();
+    showDialogFrameRef.current = window.requestAnimationFrame(() => {
+      showDialogFrameRef.current = null;
+      if (sequence === dialogSequenceRef.current && !dialogRef.current?.open) dialogRef.current?.showModal();
     });
   }
 
   function handleDialogClose() {
+    if (showDialogFrameRef.current !== null || dialogRef.current?.open) return;
     const returnFocus = returnFocusRef.current;
+    returnFocusRef.current = null;
+    clearFeedbackTimer();
+    setDialogFeedback("");
+    dialogSequenceRef.current += 1;
+    const sequence = dialogSequenceRef.current;
     setDialog(null);
-    if (returnFocus?.isConnected) {
-      window.requestAnimationFrame(() => {
-        if (returnFocus.isConnected) returnFocus.focus({ preventScroll: true });
-      });
-    }
+    if (restoreFocusFrameRef.current !== null) window.cancelAnimationFrame(restoreFocusFrameRef.current);
+    restoreFocusFrameRef.current = window.requestAnimationFrame(() => {
+      restoreFocusFrameRef.current = null;
+      if (sequence === dialogSequenceRef.current && !dialogRef.current?.open && returnFocus?.isConnected) {
+        returnFocus.focus({ preventScroll: true });
+      }
+    });
   }
 
   function handleBankTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
@@ -286,9 +341,10 @@ export function CardExperience({ profile }: { profile: Profile }) {
           {dialog.kind === "share" && shareQr ? <><a className="share-url" href={currentUrl} target="_blank" rel="noopener noreferrer">{currentUrl}</a><div className="share-qr-frame"><Image src={shareQr} alt="Mã QR mở trang Phuc Card" width={240} height={240} unoptimized /></div></> : dialog.account?.qrImage ? <div className="bank-qr-modal-frame"><div className="bank-qr-modal-image"><Image src={dialog.account.qrImage.src} alt={dialog.account.qrImage.alt} fill sizes="(max-width: 650px) calc(100vw - 72px), 560px" unoptimized style={{ objectFit: "contain" }} /></div><div className="bank-qr-modal-details"><span className="bank-detail-label">{dialog.account.label}</span><span className="bank-qr-modal-owner">{dialog.account.accountHolder}</span>{(dialog.account.accountNumber ?? dialog.account.accountDisplay) && <span className="bank-qr-modal-number">{dialog.account.accountNumber ?? dialog.account.accountDisplay}</span>}</div></div> : null}
           {dialog.kind === "share" && <div className="modal-actions"><button className="button button-primary modal-share" aria-label="Chia sẻ trang" onClick={() => void sharePage()}><Icon name="share" /> Chia sẻ</button><button className="button button-secondary modal-share" aria-label="Sao chép liên kết" onClick={() => void copyText(currentUrl, "liên kết")}><Icon name="copy" /> Sao chép</button></div>}
           {dialog.kind === "bank" && dialog.account && <button className="button button-primary modal-share" aria-label="Tải ảnh QR gốc" onClick={() => void downloadQr(dialog.account!)}><Icon name="download" /> Tải QR</button>}
+          <p className="dialog-feedback" role="status" aria-live="polite" aria-atomic="true">{dialogFeedback || "\u00a0"}</p>
         </div>}
       </dialog>
-      <div className={`toast ${toast ? "toast-visible" : ""}`} role="status" aria-live="polite"><Icon name="check" />{toast}</div>
+      <div className={`toast ${toast ? "toast-visible" : ""}`} role="status" aria-live="polite" aria-atomic="true" aria-hidden={dialog ? true : undefined}><Icon name="check" />{toast}</div>
     </main>
   );
 }
