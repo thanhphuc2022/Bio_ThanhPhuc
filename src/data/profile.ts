@@ -36,6 +36,7 @@ export type Profile = {
   givenName: string;
   familyName: string;
   jobTitle: string;
+  phoneNumber: string;
   avatar?: AvatarImage;
   contacts: ContactLink[];
   bankAccounts: BankAccount[];
@@ -46,6 +47,7 @@ export const profile: Profile = {
   givenName: "Phúc",
   familyName: "Hồ Thanh",
   jobTitle: "Backend Developer",
+  phoneNumber: "0983222945",
   avatar: {
     src: "/images/avatar.png",
     alt: "Ảnh chân dung Hồ Thanh Phúc",

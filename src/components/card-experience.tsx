@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useSyncExternalStore, type KeyboardEvent } from "react";
+import { useLayoutEffect, useRef, useState, useSyncExternalStore, type KeyboardEvent } from "react";
 import Image from "next/image";
 import type { BankAccount, Profile } from "@/data/profile";
 import { Icon } from "@/components/icon";
@@ -26,6 +26,42 @@ export function CardExperience({ profile }: { profile: Profile }) {
   const [selectedBankId, setSelectedBankId] = useState(profile.bankAccounts[0]?.id ?? "");
   const currentUrl = useSyncExternalStore(subscribeToUrl, getUrlSnapshot, getServerUrlSnapshot);
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
+
+  useLayoutEffect(() => {
+    if (!dialog) return;
+
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const root = document.documentElement;
+    const body = document.body;
+    const originalRootStyle = root.getAttribute("style");
+    const originalBodyStyle = body.getAttribute("style");
+    const scrollbarWidth = window.innerWidth - root.clientWidth;
+
+    root.style.overflow = "hidden";
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.left = `-${scrollX}px`;
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`;
+
+    return () => {
+      if (originalRootStyle === null) root.removeAttribute("style");
+      else root.setAttribute("style", originalRootStyle);
+      if (originalBodyStyle === null) body.removeAttribute("style");
+      else body.setAttribute("style", originalBodyStyle);
+      window.scrollTo(scrollX, scrollY);
+      const returnFocus = returnFocusRef.current;
+      returnFocusRef.current = null;
+      if (returnFocus?.isConnected) {
+        window.requestAnimationFrame(() => {
+          if (returnFocus.isConnected) returnFocus.focus({ preventScroll: true });
+        });
+      }
+    };
+  }, [dialog]);
 
   function announce(message: string) {
     setToast(message);
@@ -33,10 +69,21 @@ export function CardExperience({ profile }: { profile: Profile }) {
   }
 
   function openDialog(content: DialogContent) {
+    returnFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     setDialog(content);
     requestAnimationFrame(() => {
       if (!dialogRef.current?.open) dialogRef.current?.showModal();
     });
+  }
+
+  function handleDialogClose() {
+    const returnFocus = returnFocusRef.current;
+    setDialog(null);
+    if (returnFocus?.isConnected) {
+      window.requestAnimationFrame(() => {
+        if (returnFocus.isConnected) returnFocus.focus({ preventScroll: true });
+      });
+    }
   }
 
   function handleBankTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
@@ -83,21 +130,22 @@ export function CardExperience({ profile }: { profile: Profile }) {
   }
 
   function saveContact() {
-    const escapeVcf = (value: string) => value.replace(/\\/g, "\\\\").replace(/\n/g, "\\n").replace(/,/g, "\\,").replace(/;/g, "\\;");
+    const escapeVcf = (value: string) => value.replace(/\\/g, "\\\\").replace(/\r\n|\r|\n/g, "\\n").replace(/,/g, "\\,").replace(/;/g, "\\;");
     const lines = [
       "BEGIN:VCARD", "VERSION:3.0", `FN:${escapeVcf(profile.fullName)}`,
       `N:${escapeVcf(profile.familyName)};${escapeVcf(profile.givenName)};;;`,
       `TITLE:${escapeVcf(profile.jobTitle)}`,
-      ...profile.contacts.map((contact) => `URL:${contact.href}`),
+      `TEL;TYPE=CELL:${escapeVcf(profile.phoneNumber)}`,
+      ...profile.contacts.map((contact) => `URL:${escapeVcf(contact.href)}`),
       "END:VCARD",
     ];
-    const blob = new Blob([lines.join("\r\n")], { type: "text/vcard;charset=utf-8" });
+    const blob = new Blob([`${lines.join("\r\n")}\r\n`], { type: "text/vcard;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
     anchor.download = "ho-thanh-phuc.vcf";
     anchor.click();
-    URL.revokeObjectURL(url);
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
     announce("Đã tải danh bạ về thiết bị.");
   }
 
@@ -205,7 +253,7 @@ export function CardExperience({ profile }: { profile: Profile }) {
 
       <footer className="footer"><span>© {new Date().getFullYear()} PHUC CARD</span></footer>
 
-      <dialog className="modal" ref={dialogRef} aria-modal="true" onClose={() => setDialog(null)} onClick={(event) => { if (event.target === dialogRef.current) dialogRef.current?.close(); }} aria-labelledby="dialog-title">
+      <dialog className="modal" ref={dialogRef} aria-modal="true" onClose={handleDialogClose} onClick={(event) => { if (event.target === dialogRef.current) dialogRef.current?.close(); }} aria-labelledby="dialog-title">
         {dialog && <div className="modal-content"><div className="modal-top"><div><h2 id="dialog-title">{dialog.kind === "share" ? "Chia sẻ" : dialog.title}</h2></div><button className="icon-button close-button" aria-label="Đóng hộp thoại" onClick={() => dialogRef.current?.close()}><Icon name="close" /></button></div>
           {dialog.kind === "share" && shareQr ? <><a className="share-url" href={currentUrl} target="_blank" rel="noopener noreferrer">{currentUrl}</a><div className="share-qr-frame"><Image src={shareQr} alt="Mã QR mở trang Phuc Card" width={240} height={240} unoptimized /></div></> : dialog.account?.qrImage ? <div className="bank-qr-modal-frame"><div className="bank-qr-modal-image"><Image src={dialog.account.qrImage.src} alt={dialog.account.qrImage.alt} fill sizes="(max-width: 650px) calc(100vw - 72px), 560px" unoptimized style={{ objectFit: "contain" }} /></div><div className="bank-qr-modal-details"><span className="bank-detail-label">{dialog.account.label}</span><span className="bank-qr-modal-owner">{dialog.account.accountHolder}</span>{(dialog.account.accountNumber ?? dialog.account.accountDisplay) && <span className="bank-qr-modal-number">{dialog.account.accountNumber ?? dialog.account.accountDisplay}</span>}</div></div> : null}
           {dialog.kind === "share" && <div className="modal-actions"><button className="button button-primary modal-share" aria-label="Chia sẻ trang" onClick={() => void sharePage()}><Icon name="share" /> Chia sẻ</button><button className="button button-secondary modal-share" aria-label="Sao chép liên kết" onClick={() => void copyText(currentUrl, "liên kết")}><Icon name="copy" /> Sao chép</button></div>}
