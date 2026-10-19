@@ -38,6 +38,32 @@ export function CardExperience({ profile }: { profile: Profile }) {
     const originalRootStyle = root.getAttribute("style");
     const originalBodyStyle = body.getAttribute("style");
     const scrollbarWidth = window.innerWidth - root.clientWidth;
+    const trapDialogTab = (event: globalThis.KeyboardEvent) => {
+      if (event.key !== "Tab") return;
+      const modal = dialogRef.current;
+      if (!modal?.open) return;
+
+      const focusable = Array.from(modal.querySelectorAll<HTMLElement>(
+        'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])',
+      )).filter((element) => element.getClientRects().length > 0);
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (!first || !last) {
+        event.preventDefault();
+        modal.focus();
+      } else if (!modal.contains(active)) {
+        event.preventDefault();
+        (event.shiftKey ? last : first).focus();
+      } else if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
 
     root.style.overflow = "hidden";
     body.style.position = "fixed";
@@ -46,8 +72,10 @@ export function CardExperience({ profile }: { profile: Profile }) {
     body.style.width = "100%";
     body.style.overflow = "hidden";
     if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`;
+    document.addEventListener("keydown", trapDialogTab, true);
 
     return () => {
+      document.removeEventListener("keydown", trapDialogTab, true);
       if (originalRootStyle === null) root.removeAttribute("style");
       else root.setAttribute("style", originalRootStyle);
       if (originalBodyStyle === null) body.removeAttribute("style");
@@ -253,7 +281,7 @@ export function CardExperience({ profile }: { profile: Profile }) {
 
       <footer className="footer"><span>© {new Date().getFullYear()} PHUC CARD</span></footer>
 
-      <dialog className="modal" ref={dialogRef} aria-modal="true" onClose={handleDialogClose} onClick={(event) => { if (event.target === dialogRef.current) dialogRef.current?.close(); }} aria-labelledby="dialog-title">
+      <dialog className="modal" ref={dialogRef} tabIndex={-1} aria-modal="true" onClose={handleDialogClose} onClick={(event) => { if (event.target === dialogRef.current) dialogRef.current?.close(); }} aria-labelledby="dialog-title">
         {dialog && <div className="modal-content"><div className="modal-top"><div><h2 id="dialog-title">{dialog.kind === "share" ? "Chia sẻ" : dialog.title}</h2></div><button className="icon-button close-button" aria-label="Đóng hộp thoại" onClick={() => dialogRef.current?.close()}><Icon name="close" /></button></div>
           {dialog.kind === "share" && shareQr ? <><a className="share-url" href={currentUrl} target="_blank" rel="noopener noreferrer">{currentUrl}</a><div className="share-qr-frame"><Image src={shareQr} alt="Mã QR mở trang Phuc Card" width={240} height={240} unoptimized /></div></> : dialog.account?.qrImage ? <div className="bank-qr-modal-frame"><div className="bank-qr-modal-image"><Image src={dialog.account.qrImage.src} alt={dialog.account.qrImage.alt} fill sizes="(max-width: 650px) calc(100vw - 72px), 560px" unoptimized style={{ objectFit: "contain" }} /></div><div className="bank-qr-modal-details"><span className="bank-detail-label">{dialog.account.label}</span><span className="bank-qr-modal-owner">{dialog.account.accountHolder}</span>{(dialog.account.accountNumber ?? dialog.account.accountDisplay) && <span className="bank-qr-modal-number">{dialog.account.accountNumber ?? dialog.account.accountDisplay}</span>}</div></div> : null}
           {dialog.kind === "share" && <div className="modal-actions"><button className="button button-primary modal-share" aria-label="Chia sẻ trang" onClick={() => void sharePage()}><Icon name="share" /> Chia sẻ</button><button className="button button-secondary modal-share" aria-label="Sao chép liên kết" onClick={() => void copyText(currentUrl, "liên kết")}><Icon name="copy" /> Sao chép</button></div>}
