@@ -15,7 +15,6 @@ Mở `http://localhost:3000`. Các lệnh dự án:
 npm run lint
 npm run typecheck
 npm run build
-npm run start
 ```
 
 ## Cập nhật thông tin và ảnh
@@ -24,3 +23,12 @@ npm run start
 - Thay avatar tại `public/images/avatar.png`; đường dẫn, mô tả và vị trí ảnh được khai báo trong `profile.avatar`.
 - Ảnh QR dùng để hiển thị được khai báo tại `qrImage.src` (`*_display.png`). Ảnh tải về là file gốc tại `qrImage.originalSrc` (`.jpg`). Giữ nguyên hai vai trò này khi thay ảnh.
 - QR nhận tiền là ảnh ngân hàng của từng tài khoản. QR chia sẻ trang được tạo riêng từ URL hiện tại qua dịch vụ bên ngoài `api.qrserver.com`; chức năng này phụ thuộc dịch vụ đó.
+
+## Deploy Render Static Site
+
+Tạo một **Static Site** trên Render và cấu hình:
+
+- **Build Command:** `npm ci && npm run build`
+- **Publish Directory:** `out`
+
+Lệnh build Next.js tạo trang tĩnh cùng tài nguyên trong thư mục `out`. Dự án không cần web service hoặc lệnh chạy server trên Render. QR chia sẻ vẫn phụ thuộc dịch vụ bên ngoài `api.qrserver.com`.
