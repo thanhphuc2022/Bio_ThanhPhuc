@@ -2,10 +2,10 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Phuc Card — Hồ Thanh Phúc",
+  title: "PHLAB — Hồ Thanh Phúc",
   description: "Hồ Thanh Phúc · Backend Developer",
   openGraph: {
-    title: "Phuc Card — Hồ Thanh Phúc",
+    title: "PHLAB — Hồ Thanh Phúc",
     description: "Hồ Thanh Phúc · Backend Developer",
     type: "website",
     locale: "vi_VN",

@@ -202,7 +202,7 @@ export function CardExperience({ profile }: { profile: Profile }) {
     const url = window.location.href;
     if (navigator.share) {
       try {
-        await navigator.share({ title: `Phuc Card — ${profile.fullName}`, text: profile.jobTitle, url });
+        await navigator.share({ title: `PHLAB — ${profile.fullName}`, text: profile.jobTitle, url });
         announce("Đã mở bảng chia sẻ.");
       } catch (error) {
         if (error instanceof Error && error.name !== "AbortError") await copyText(url, "liên kết");
@@ -334,11 +334,11 @@ export function CardExperience({ profile }: { profile: Profile }) {
         </section>
       </div>
 
-      <footer className="footer"><span>© {new Date().getFullYear()} PHUC CARD</span></footer>
+      <footer className="footer"><span>© {new Date().getFullYear()} PHLAB</span></footer>
 
       <dialog className="modal" ref={dialogRef} tabIndex={-1} aria-modal="true" onClose={handleDialogClose} onClick={(event) => { if (event.target === dialogRef.current) dialogRef.current?.close(); }} aria-labelledby="dialog-title">
         {dialog && <div className="modal-content"><div className="modal-top"><div><h2 id="dialog-title">{dialog.kind === "share" ? "Chia sẻ" : dialog.title}</h2></div><button className="icon-button close-button" aria-label="Đóng hộp thoại" onClick={() => dialogRef.current?.close()}><Icon name="close" /></button></div>
-          {dialog.kind === "share" && shareQr ? <><a className="share-url" href={currentUrl} target="_blank" rel="noopener noreferrer">{currentUrl}</a><div className="share-qr-frame"><Image src={shareQr} alt="Mã QR mở trang Phuc Card" width={240} height={240} unoptimized /></div></> : dialog.account?.qrImage ? <div className="bank-qr-modal-frame"><div className="bank-qr-modal-image"><Image src={dialog.account.qrImage.src} alt={dialog.account.qrImage.alt} fill sizes="(max-width: 650px) calc(100vw - 72px), 560px" unoptimized style={{ objectFit: "contain" }} /></div><div className="bank-qr-modal-details"><span className="bank-detail-label">{dialog.account.label}</span><span className="bank-qr-modal-owner">{dialog.account.accountHolder}</span>{(dialog.account.accountNumber ?? dialog.account.accountDisplay) && <span className="bank-qr-modal-number">{dialog.account.accountNumber ?? dialog.account.accountDisplay}</span>}</div></div> : null}
+          {dialog.kind === "share" && shareQr ? <><a className="share-url" href={currentUrl} target="_blank" rel="noopener noreferrer">{currentUrl}</a><div className="share-qr-frame"><Image src={shareQr} alt="Mã QR mở trang PHLAB" width={240} height={240} unoptimized /></div></> : dialog.account?.qrImage ? <div className="bank-qr-modal-frame"><div className="bank-qr-modal-image"><Image src={dialog.account.qrImage.src} alt={dialog.account.qrImage.alt} fill sizes="(max-width: 650px) calc(100vw - 72px), 560px" unoptimized style={{ objectFit: "contain" }} /></div><div className="bank-qr-modal-details"><span className="bank-detail-label">{dialog.account.label}</span><span className="bank-qr-modal-owner">{dialog.account.accountHolder}</span>{(dialog.account.accountNumber ?? dialog.account.accountDisplay) && <span className="bank-qr-modal-number">{dialog.account.accountNumber ?? dialog.account.accountDisplay}</span>}</div></div> : null}
           {dialog.kind === "share" && <div className="modal-actions"><button className="button button-primary modal-share" aria-label="Chia sẻ trang" onClick={() => void sharePage()}><Icon name="share" /> Chia sẻ</button><button className="button button-secondary modal-share" aria-label="Sao chép liên kết" onClick={() => void copyText(currentUrl, "liên kết")}><Icon name="copy" /> Sao chép</button></div>}
           {dialog.kind === "bank" && dialog.account && <button className="button button-primary modal-share" aria-label="Tải ảnh QR gốc" onClick={() => void downloadQr(dialog.account!)}><Icon name="download" /> Tải QR</button>}
           <p className="dialog-feedback" role="status" aria-live="polite" aria-atomic="true">{dialogFeedback || "\u00a0"}</p>
