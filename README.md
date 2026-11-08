@@ -1,34 +1,29 @@
-# Phuc Card
+# PHLAB
 
-Bio eCard cá nhân của Hồ Thanh Phúc, dùng Next.js, React, TypeScript và CSS. Trang hiển thị hồ sơ, liên kết liên hệ, ba tùy chọn nhận chuyển khoản, mã QR chia sẻ trang và danh bạ vCard.
+A personal digital business card designed to bring profile information, social links, and banking QR codes together in one simple and accessible page.
 
-## Chạy dự án
+**[Live Demo](https://bio-thanhphuc.onrender.com/)**
 
-```bash
-npm ci
-npm run dev
-```
+<!-- Add a desktop/mobile screenshot here when available.
+![Phuc Card Preview](./docs/bio-card-preview.png)
+-->
 
-Mở `http://localhost:3000`. Các lệnh dự án:
+## Preview
 
-```bash
-npm run lint
-npm run typecheck
-npm run build
-```
+A simple digital space to introduce yourself, connect with others, and share your contact information.
 
-## Cập nhật thông tin và ảnh
+## Highlights
 
-- Sửa tên, nghề nghiệp, điện thoại, liên kết và cấu hình các tài khoản trong [`src/data/profile.ts`](src/data/profile.ts).
-- Thay avatar tại `public/images/avatar.png`; đường dẫn, mô tả và vị trí ảnh được khai báo trong `profile.avatar`.
-- Ảnh QR dùng để hiển thị được khai báo tại `qrImage.src` (`*_display.png`). Ảnh tải về là file gốc tại `qrImage.originalSrc` (`.jpg`). Giữ nguyên hai vai trò này khi thay ảnh.
-- QR nhận tiền là ảnh ngân hàng của từng tài khoản. QR chia sẻ trang được tạo riêng từ URL hiện tại qua dịch vụ bên ngoài `api.qrserver.com`; chức năng này phụ thuộc dịch vụ đó.
+- Personal profile and contact information
+- Social media and communication links
+- Multiple banking QR codes for convenient transfers
+- QR code for sharing the digital card
+- vCard contact support
 
-## Deploy Render Static Site
+## Built With
 
-Tạo một **Static Site** trên Render và cấu hình:
+`Next.js` · `React` · `TypeScript` · `Tailwind CSS`
 
-- **Build Command:** `npm ci && npm run build`
-- **Publish Directory:** `out`
+---
 
-Lệnh build Next.js tạo trang tĩnh cùng tài nguyên trong thư mục `out`. Dự án không cần web service hoặc lệnh chạy server trên Render. QR chia sẻ vẫn phụ thuộc dịch vụ bên ngoài `api.qrserver.com`.
+**Designed & developed by [Hồ Thanh Phúc](https://github.com/thanhphuc2022)**
